@@ -6,8 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 
-import Dashboard from "./components/Dashboard";
 import Layout from "./components/Layout";
+import DashboardView from "./views/DashboardView";
 
 interface ILayoutRoute {
   exact?: boolean;
@@ -31,7 +31,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <LayoutRoute exact path="/dashboard" component={<Dashboard />} />
+        <LayoutRoute exact path="/dashboard" component={<DashboardView />} />
         <Redirect from="/" to="/dashboard" />
       </Switch>
     </Router>

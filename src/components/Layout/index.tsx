@@ -20,6 +20,8 @@ import Typography from "@mui/material/Typography";
 
 import { getMenuIcon, menu } from "../../utils/menu";
 
+import styles from "./styles.module.css";
+
 interface ILayout {
   children: ReactNode;
 }
@@ -147,7 +149,7 @@ const Layout = ({ children }: ILayout) => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {children}
+        <div className={styles.container}>{children}</div>
       </Main>
     </Box>
   );
