@@ -1,7 +1,7 @@
 export enum ProductCategories {
   MENS_CLOTHING = "men's clothing",
   ELECTRONICS = "electronics",
-  JEWELERY = "jewelery",
+  JEWELERY = "jewelry",
 }
 
 export interface IOrder {
@@ -15,7 +15,7 @@ export interface IOrder {
   revenue?: number;
   cost?: number;
   profit?: number;
-  profitMargin?: number;
+  profitMargin?: number | string;
   date: string;
 }
 
