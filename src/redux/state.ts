@@ -1,5 +1,5 @@
-import ProductsState from "./products/state";
+import OrderState from "./orders/state";
 
 export default interface AppState {
-  productsList: ProductsState;
+  orderList: OrderState;
 }

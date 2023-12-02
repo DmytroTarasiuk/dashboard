@@ -1,11 +1,11 @@
-import { IProduct } from "../../redux/products/state";
+import { IOrder } from "../../redux/orders/state";
 
 interface IDashboard {
-  products: IProduct[];
+  orders: IOrder[];
 }
 
-const Dashboard = ({ products }: IDashboard) => {
-  console.log(products);
+const Dashboard = ({ orders }: IDashboard) => {
+  console.log(orders);
 
   return <>Dashboard</>;
 };
