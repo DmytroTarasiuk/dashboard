@@ -1,7 +1,8 @@
 import { memo, useMemo } from "react";
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 
-import { IOrder } from "../../redux/orders/state";
+import { getOrderList } from "../../redux/orders/selectors";
 import { ProductCategories } from "../../redux/orders/state";
 
 import PieChart from "./PieChart";
@@ -9,11 +10,9 @@ import TimelineChart from "./TimeLineChart";
 
 import styles from "./styles.module.css";
 
-interface ICharts {
-  data: IOrder[];
-}
+const Charts = () => {
+  const data = useSelector(getOrderList);
 
-const Charts = ({ data }: ICharts) => {
   const timeLineData = useMemo(() => {
     return data?.map((item) => ({
       date: item.date,

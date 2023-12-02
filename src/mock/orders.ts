@@ -38,7 +38,7 @@ const mockSales = [
     description:
       "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
     unitSold: getRandomInt(10, 100),
-    date: `03-${month}-2023`,
+    date: `02-${month}-2023`,
   },
   {
     id: 4,
