@@ -4,6 +4,8 @@ export function getRandomInt(min, max) {
 
 const month = "12";
 
+// The product data is taken from Free online REST API fakestoreapi.com
+
 const mockSales = [
   {
     id: 1,

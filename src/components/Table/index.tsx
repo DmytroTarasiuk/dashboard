@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,13 +11,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
+import { useDataParsing } from "./hooks/useDataParsing";
+import { filterData } from "./TableFilter/utils";
+import TableFilter from "./TableFilter";
 import EnhancedTableHead from "./TableHead";
 import EnhancedTableToolbar from "./TableToolbar";
 
 interface ITable {
   rows?: any[];
   headCells?: any[];
+  orderByField?: string;
   tabelCellComponent?: any;
+  renderFilterFields?: string[];
   hideFieldsOnList?: string[];
 }
 
@@ -67,15 +72,26 @@ function stableSort<T>(
 export default function EnhancedTable({
   rows = [],
   headCells = [],
+  orderByField,
+  renderFilterFields,
   tabelCellComponent = null,
   hideFieldsOnList,
 }: ITable) {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<string>("revenue");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<string>(orderByField);
+  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filters, setFilters] = useState<Object>({});
+  const [searchText, setSearchText] = useState<string>("");
+  const [isFilterButtonClicked, setIsFilterButtonClicked] =
+    useState<boolean>(false);
+
+  const parsedArrayToRequestedFilterFields = useDataParsing(
+    rows,
+    renderFilterFields,
+  );
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -148,19 +164,40 @@ export default function EnhancedTable({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const visibleRows = React.useMemo(
+  const visibleRows = useMemo(
     () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, rows],
+      stableSort(
+        isFilterButtonClicked ? filterData(rows, filters, searchText) : rows,
+        getComparator(order, orderBy),
+      ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [
+      order,
+      orderBy,
+      page,
+      rowsPerPage,
+      rows,
+      filters,
+      isFilterButtonClicked,
+      searchText,
+    ],
   );
 
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          tableFilterComponent={
+            <TableFilter
+              columns={headCells}
+              data={parsedArrayToRequestedFilterFields}
+              filters={filters}
+              setFilters={setFilters}
+              showFilter={isFilterButtonClicked}
+              setShowFilter={setIsFilterButtonClicked}
+            />
+          }
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

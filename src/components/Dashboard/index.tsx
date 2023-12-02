@@ -1,6 +1,7 @@
 import { getRandomInt } from "../../mock/orders";
 import { IOrder } from "../../redux/orders/state";
 import EnhancedTable from "../Table";
+import { FilterTypes } from "../Table/TableFilter/types";
 
 import DashboardTableCell, { IDashboardTableCell } from "./DashboardTableCell";
 
@@ -20,6 +21,7 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "Category",
+    filterType: FilterTypes.SELECT,
   },
   {
     id: "price",
@@ -85,7 +87,9 @@ const Dashboard = ({ orders }: IDashboard) => {
     <EnhancedTable
       rows={salesData}
       headCells={headCells}
+      orderByField="revenue"
       hideFieldsOnList={["id", "productId", "description"]}
+      renderFilterFields={["category"]}
       tabelCellComponent={(props: IDashboardTableCell) => (
         <DashboardTableCell {...props} />
       )}
