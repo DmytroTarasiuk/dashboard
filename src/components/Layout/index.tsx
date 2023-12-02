@@ -105,7 +105,7 @@ const Layout = ({ children }: ILayout) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
