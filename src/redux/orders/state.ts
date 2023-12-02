@@ -11,7 +11,11 @@ export interface IOrder {
   description: string;
   price: number;
   category: ProductCategories;
-  qty: number;
+  unitSold: number;
+  revenue?: number;
+  cost?: number;
+  profit?: number;
+  profitMargin?: number;
   date: string;
 }
 

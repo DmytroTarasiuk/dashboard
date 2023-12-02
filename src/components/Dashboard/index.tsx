@@ -1,3 +1,4 @@
+import { getRandomInt } from "../../mock/orders";
 import { IOrder } from "../../redux/orders/state";
 
 interface IDashboard {
@@ -5,7 +6,22 @@ interface IDashboard {
 }
 
 const Dashboard = ({ orders }: IDashboard) => {
-  console.log(orders);
+  const salesData = orders?.map((order) => {
+    const revenue = +(order.unitSold * order.price).toFixed(2);
+    const cost = +(revenue * +`0.${getRandomInt(3, 7)}`).toFixed(2);
+    const profit = revenue - cost;
+    const profitMargin = ((profit / revenue) * 100).toFixed(0);
+
+    return {
+      ...order,
+      revenue,
+      cost,
+      profit,
+      profitMargin,
+    };
+  });
+
+  console.log(salesData);
 
   return <>Dashboard</>;
 };
