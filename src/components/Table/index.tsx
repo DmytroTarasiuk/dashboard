@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -10,6 +10,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+
+import { exportToCSV } from "../../utils";
 
 import { useDataParsing } from "./hooks/useDataParsing";
 import { filterData } from "./TableFilter/utils";
@@ -84,7 +86,6 @@ export default function EnhancedTable({
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filters, setFilters] = useState<Object>({});
-  const [searchText, setSearchText] = useState<string>("");
   const [isFilterButtonClicked, setIsFilterButtonClicked] =
     useState<boolean>(false);
 
@@ -167,19 +168,15 @@ export default function EnhancedTable({
   const visibleRows = useMemo(
     () =>
       stableSort(
-        isFilterButtonClicked ? filterData(rows, filters, searchText) : rows,
+        isFilterButtonClicked ? filterData(rows, filters, "") : rows,
         getComparator(order, orderBy),
       ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [
-      order,
-      orderBy,
-      page,
-      rowsPerPage,
-      rows,
-      filters,
-      isFilterButtonClicked,
-      searchText,
-    ],
+    [order, orderBy, page, rowsPerPage, rows, filters, isFilterButtonClicked],
+  );
+
+  const handleCsvDownload = useCallback(
+    () => exportToCSV(rows, "sales"),
+    [rows],
   );
 
   return (
@@ -187,6 +184,7 @@ export default function EnhancedTable({
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar
           numSelected={selected.length}
+          onDownloadCsv={handleCsvDownload}
           tableFilterComponent={
             <TableFilter
               columns={headCells}

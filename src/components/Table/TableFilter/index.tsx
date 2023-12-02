@@ -30,7 +30,6 @@ const TableFilter = ({
   showFilter,
   setShowFilter,
 }: ITableFilter) => {
-  const [appliedFilters, setAppliedFilters] = useState<Object[]>([]);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
 
@@ -68,25 +67,12 @@ const TableFilter = ({
   return (
     <>
       <div className={styles.toolbarContainer}>
-        {appliedFilters.length ? (
-          <Button className={styles.clearFilterBtn} onClick={clearFilter}>
-            Clear
-          </Button>
-        ) : null}
         <div
           className={`${styles.toolbarAction} ${menuOpen && styles.filter}`}
           onClick={handleClick}
-          style={{
-            ...(appliedFilters.length && { border: "1px solid #0194B4" }),
-          }}
         >
           <FilterListIcon />
           <span>Filter</span>
-          {appliedFilters.length ? (
-            <div className={styles.badge}>
-              <span className={styles.badgeNum}>{appliedFilters.length}</span>
-            </div>
-          ) : null}
         </div>
         {searchComponent}
       </div>

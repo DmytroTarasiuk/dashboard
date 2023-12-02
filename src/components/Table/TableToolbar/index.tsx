@@ -1,17 +1,22 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
+import styles from "./styles.module.css";
+
 interface EnhancedTableToolbarProps {
   numSelected: number;
   tableFilterComponent?: any;
+  onDownloadCsv?: () => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, tableFilterComponent } = props;
+  const { numSelected, tableFilterComponent, onDownloadCsv } = props;
 
   return (
     <Toolbar
@@ -53,7 +58,16 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           </IconButton>
         </Tooltip>
       ) : (
-        <>{tableFilterComponent}</>
+        <>
+          <Button
+            startIcon={<FileDownloadIcon />}
+            className={styles.downloadButton}
+            onClick={onDownloadCsv}
+          >
+            Download Csv
+          </Button>
+          {tableFilterComponent}
+        </>
       )}
     </Toolbar>
   );
