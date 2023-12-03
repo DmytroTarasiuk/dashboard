@@ -1,3 +1,7 @@
+## Live Demo
+
+Check out the live version of the app: [Live Demo](https://wonderful-snickerdoodle-bacc76.netlify.app/)
+
 ## Getting Started
 
 Follow these steps to run the app locally:
