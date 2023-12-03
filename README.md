@@ -14,6 +14,16 @@ Follow these steps to run the app locally:
 5. **Start the Development Server**:
 `yarn start`
 
+## Technologies Used
+
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ESLint](https://eslint.org/)
+- [Material-UI](https://material-ui.com/)
+- [react-apexcharts](https://apexcharts.com/docs/react-charts/)
+- [Other Technologies]
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
