@@ -103,15 +103,8 @@ const Scheduler = () => {
   };
 
   useEffect(() => {
-    const removeElement = () => {
-      const body = document.querySelector("body");
-
-      if (body.childNodes[8]) {
-        body.childNodes[8].remove();
-      }
-    };
-
-    removeElement();
+    const body = document.querySelector("body");
+    console.log(body);
   }, []);
 
   return (

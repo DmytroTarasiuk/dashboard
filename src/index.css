@@ -22,3 +22,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body > div:nth-child(4) {
+  display: none;
+}
