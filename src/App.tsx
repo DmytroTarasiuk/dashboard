@@ -8,6 +8,7 @@ import {
 
 import Layout from "./components/Layout";
 import DashboardView from "./views/DashboardView";
+import SchedulerView from "./views/SchedulerView";
 
 interface ILayoutRoute {
   exact?: boolean;
@@ -32,6 +33,7 @@ function App() {
     <Router>
       <Switch>
         <LayoutRoute exact path="/dashboard" component={<DashboardView />} />
+        <LayoutRoute exact path="/scheduler" component={<SchedulerView />} />
         <Redirect from="/" to="/dashboard" />
       </Switch>
     </Router>
